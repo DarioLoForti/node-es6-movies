@@ -71,8 +71,13 @@ class Movie {
 
   // Funzione per ottenere tutti i generi senza ripetizioni
   function getAllGenres(filmList) {
-    const genres = filmList.map(film => film.genre);
-    return [...new Set(genres)];
+    const genres = [];
+    filmList.forEach((item) => {
+        if (!genres.includes(item.genre)) {
+            genres.push(item.genre);
+        }
+    });
+    return genres;
   }
 
   const allGenres = getAllGenres(filmInstances);
