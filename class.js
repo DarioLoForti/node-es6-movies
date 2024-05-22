@@ -77,6 +77,15 @@ const films = [
     toString() {
       return `${this.title} è un film di genere ${this.genre}. E' stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}.`;
     }
+    toObject() {
+        return {
+          title: this.#title,
+          year: this.#year,
+          genre: this.#genre,
+          rating: this.#rating,
+          type: this.#type
+        };
+      }
   }
   
   class TvSerie extends Movie {
@@ -98,6 +107,16 @@ const films = [
     toString() {
       return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}.`;
     }
+    toObject() {
+        return {
+          title: this.title,
+          year: this.year,
+          genre: this.genre,
+          rating: this.rating,
+          type: this.type,
+          seasons: this.#seasons
+        };
+      }
   }
   
   // Creare un nuovo array con le istanze di Movie o TvSerie
@@ -108,7 +127,7 @@ const films = [
       return new TvSerie(film.title, film.year, film.genre, film.rating, film.type, film.seasons);
     }
   });
-   console.log(filmInstances);
+  console.log(filmInstances.map(film => film.toObject()));
   
   // Funzione per calcolare la media dei voti per un determinato genere
   function averageRatingByGenre(filmList, genre) {
@@ -146,3 +165,42 @@ const films = [
   console.log(`Film di genere ${genreToFilter}:`);
   filteredFilms.forEach(filmStr => console.log(filmStr));
   
+  class Cart{
+    #items;
+    #price;
+
+    constructor(){
+        this.#items = [];
+        this.#price = 3.99;
+    }
+  
+
+  addItem(film) {
+    this.#items.push(film);
+    console.log(`${film.title} aggiunto al carrello.`);
+  }
+  
+  removeItem(filmTitle) {
+    const index = this.#items.findIndex(film => film.title === filmTitle);
+    if (index !== -1) {
+      const removed = this.#items.splice(index, 1);
+      console.log(`${removed[0].title} rimosso dal carrello.`);
+    } else {
+      console.log(`${filmTitle} non trovato nel carrello.`);
+    }
+  }
+
+  getTotalCost() {
+    const totalCost = this.#items.length * this.#price;
+    console.log(`Il costo totale dei film da noleggiare è: €${totalCost.toFixed(2)}`);
+    return totalCost;
+  }
+}
+
+const cart = new Cart();
+cart.addItem(filmInstances[10]);
+cart.addItem(filmInstances[8]); 
+cart.addItem(filmInstances[15]); 
+cart.getTotalCost(); 
+cart.removeItem('The Office'); 
+cart.getTotalCost();
