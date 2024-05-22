@@ -22,10 +22,8 @@ const films = [
     { title: 'The Lion King', year: 1994, genre: 'Animation', rating: 8.5, type: 'movie' },
     { title: 'Gladiator', year: 2000, genre: 'Action', rating: 8.5, type: 'movie' }
   ];
-  
 
-
-  class Movie {
+class Movie {
     constructor(title, year, genre, rating, type) {
       this.title = title;
       this.year = year;
@@ -34,31 +32,60 @@ const films = [
       this.type = type;
     }
   
-    toStringMovie() {
+    toString() {
       return `${this.title} è un film di genere ${this.genre}. E' stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}.`;
     }
   }
   
   class TvSerie extends Movie {
     constructor(title, year, genre, rating, type, seasons) {
-      super(title, year, genre, rating);
+      super(title, year, genre, rating, type);
       this.seasons = seasons;
-      this.type = type;
     }
   
-    toStringSerie() {
+    toString() {
       return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}.`;
     }
   }
-
-    films.map((film) => {
-    if(film.type === "movie") {
-        film = new Movie(film.title, film.year, film.genre, film.rating, film.type);
-        console.log(film.toStringMovie());
+  
+  // Creare un nuovo array con le istanze di Movie o TvSerie
+  const filmInstances = films.map(film => {
+    if (film.type === 'movie') {
+      return new Movie(film.title, film.year, film.genre, film.rating, film.type);
     } else {
-        film = new TvSerie(film.title, film.year, film.genre, film.rating, film.type, film.seasons);
-        console.log(film.toStringSerie());
+      return new TvSerie(film.title, film.year, film.genre, film.rating, film.type, film.seasons);
     }
-})
+  });
+   console.log(filmInstances);
+  
+  // Funzione per calcolare la media dei voti per un determinato genere
+  function averageRatingByGenre(filmList, genre) {
+    const filteredFilms = filmList.filter(film => film.genre === genre);
+    const totalRating = filteredFilms.reduce((sum, film) => sum + film.rating, 0);
+    return totalRating / filteredFilms.length;
+  }
+  const genreToFilter = 'Drama';
+  
+  const avgRating = averageRatingByGenre(filmInstances, genreToFilter);
+  console.log(`La media dei voti per il genere ${genreToFilter} è: ${avgRating}`);
 
+  // Funzione per ottenere tutti i generi senza ripetizioni
+  function getAllGenres(filmList) {
+    const genres = filmList.map(film => film.genre);
+    return [...new Set(genres)];
+  }
+
+  const allGenres = getAllGenres(filmInstances);
+  console.log('Tutti i generi:', allGenres);
+  
+  // Funzione per filtrare i film per genere e ottenere la lista di toString()
+  function filterFilmsByGenre(filmList, genre) {
+    return filmList
+      .filter(film => film.genre === genre)
+      .map(film => film.toString());
+  }
+
+  const filteredFilms = filterFilmsByGenre(filmInstances, genreToFilter);
+  console.log(`Film di genere ${genreToFilter}:`);
+  filteredFilms.forEach(filmStr => console.log(filmStr));
   
