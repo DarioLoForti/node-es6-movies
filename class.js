@@ -26,27 +26,39 @@ const films = [
 
 
   class Movie {
-    constructor(title, year, genre, rating) {
+    constructor(title, year, genre, rating, type) {
       this.title = title;
       this.year = year;
       this.genre = genre;
       this.rating = rating;
-      this.type = 'movie';
+      this.type = type;
     }
   
-    toString() {
+    toStringMovie() {
       return `${this.title} è un film di genere ${this.genre}. E' stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}.`;
     }
   }
   
   class TvSerie extends Movie {
-    constructor(title, year, genre, rating, seasons) {
+    constructor(title, year, genre, rating, type, seasons) {
       super(title, year, genre, rating);
       this.seasons = seasons;
-      this.type = 'tv';
+      this.type = type;
     }
   
-    toString() {
+    toStringSerie() {
       return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}.`;
     }
   }
+
+    films.map((film) => {
+    if(film.type === "movie") {
+        film = new Movie(film.title, film.year, film.genre, film.rating, film.type);
+        console.log(film.toStringMovie());
+    } else {
+        film = new TvSerie(film.title, film.year, film.genre, film.rating, film.type, film.seasons);
+        console.log(film.toStringSerie());
+    }
+})
+
+  
