@@ -180,14 +180,9 @@ const films = [
     console.log(`${film.title} aggiunto al carrello.`);
   }
   
-  removeItem(filmTitle) {
-    const index = this.#items.findIndex(film => film.title === filmTitle);
-    if (index !== -1) {
-      const removed = this.#items.splice(index, 1);
-      console.log(`${removed[0].title} rimosso dal carrello.`);
-    } else {
-      console.log(`${filmTitle} non trovato nel carrello.`);
-    }
+  removeItem(film) {
+    this.#items = this.#items.filter(item => item !== film);
+    console.log(`${film.title} rimosso dal carrello.`);
   }
 
   getTotalCost() {
@@ -202,5 +197,5 @@ cart.addItem(filmInstances[10]);
 cart.addItem(filmInstances[8]); 
 cart.addItem(filmInstances[15]); 
 cart.getTotalCost(); 
-cart.removeItem('The Office'); 
+cart.removeItem(filmInstances[15]); 
 cart.getTotalCost();
