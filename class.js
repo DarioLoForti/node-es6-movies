@@ -23,13 +23,55 @@ const films = [
     { title: 'Gladiator', year: 2000, genre: 'Action', rating: 8.5, type: 'movie' }
   ];
 
-class Movie {
+  class Movie {
+    #title;
+    #year;
+    #genre;
+    #rating;
+    #type;
+  
     constructor(title, year, genre, rating, type) {
-      this.title = title;
-      this.year = year;
-      this.genre = genre;
-      this.rating = rating;
-      this.type = type;
+      this.#title = title;
+      this.#year = year;
+      this.#genre = genre;
+      this.#rating = rating;
+      this.#type = type;
+    }
+  
+    get title() {
+      return this.#title;
+    }
+  
+    get year() {
+      return this.#year;
+    }
+  
+    get genre() {
+      return this.#genre;
+    }
+  
+    get rating() {
+      return this.#rating;
+    }
+  
+    get type() {
+      return this.#type;
+    }
+  
+    set title(value) {
+      this.#title = value;
+    }
+  
+    set year(value) {
+      this.#year = value;
+    }
+  
+    set genre(value) {
+      this.#genre = value;
+    }
+  
+    set rating(value) {
+      this.#rating = value;
     }
   
     toString() {
@@ -38,9 +80,19 @@ class Movie {
   }
   
   class TvSerie extends Movie {
+    #seasons;
+  
     constructor(title, year, genre, rating, type, seasons) {
       super(title, year, genre, rating, type);
-      this.seasons = seasons;
+      this.#seasons = seasons;
+    }
+  
+    get seasons() {
+      return this.#seasons;
+    }
+  
+    set seasons(value) {
+      this.#seasons = value;
     }
   
     toString() {
