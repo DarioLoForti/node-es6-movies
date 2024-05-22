@@ -25,17 +25,28 @@ const films = [
   
 
 
-class Movie {
-
-    costructor(title, year, genre, rating, type){
-        this.title = title;
-        this.year = year;
-        this.genre = genre;
-        this.rating = rating;
-        this.type = 'movie';
+  class Movie {
+    constructor(title, year, genre, rating) {
+      this.title = title;
+      this.year = year;
+      this.genre = genre;
+      this.rating = rating;
+      this.type = 'movie';
     }
-
+  
     toString() {
-        return `${this.title} è un film di genere ${this.genre}. E' stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}.`;
-      }
-}
+      return `${this.title} è un film di genere ${this.genre}. E' stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}.`;
+    }
+  }
+  
+  class TvSerie extends Movie {
+    constructor(title, year, genre, rating, seasons) {
+      super(title, year, genre, rating);
+      this.seasons = seasons;
+      this.type = 'tv';
+    }
+  
+    toString() {
+      return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}.`;
+    }
+  }
